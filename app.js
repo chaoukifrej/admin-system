@@ -13,7 +13,7 @@ let inscription = {
     </select>
     <input @click.prevent="inscription" type="submit" value="S'incrire">
     </form>
-    <a>Déja inscris ? <span @click="notConnected" class="btnInscrire">se connecter</span></a>
+    <a>Déja inscris ? <span @click="notConnected" class="btnChange">se connecter</span></a>
     {{affiche}}
   </div>`,
   data() {
@@ -49,7 +49,7 @@ let connexion = {
     <input v-model="nom" type="text" placeholder="Nom"/>
     <input v-model="password" type="password" placeholder="Mot de passe"/>
     <button @click="connect">Se connecter</button>
-    <a>pas de compte ? <span @click="nonInscris" class="btnInscrire">s'incrire</span></a>
+    <a>pas de compte ? <span @click="nonInscris" class="btnChange">s'incrire</span></a>
     {{connexion}}
   </div>`,
   data() {
@@ -87,10 +87,10 @@ let affichage = {
     <h2>Connecté</h2>
     <div v-for="item in user">
     <div v-if="item.isConnected">
-    <p>Bienvenue <b>{{item.nom}}</b>,<br> tu est un <b>{{item.role}}</b></p>
+    <p>Bienvenue <b>{{item.nom}}</b>,<br> tu est un <b>{{item.role}}</b>.<br> Par contre tu ne peut rien faire...</p>
     </div>
     </div>
-    <a><span @click="deconnect" class="btnInscrire">se déconnecter</span></a>
+    <a><span @click="deconnect" class="btnChange">se déconnecter</span></a>
   </div>`,
 
   methods: {

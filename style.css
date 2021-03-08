@@ -21,9 +21,10 @@ h1 {
 input {
   padding: 5px;
   border-radius: 5px;
-  border: 2px solid black;
+  border: 2px solid rgb(121, 121, 121);
+  outline: none;
 }
-select {
+input select {
   padding: 5px;
   border-radius: 5px;
 }
@@ -53,8 +54,21 @@ select {
 
 .inscription select {
   width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+}
+.inscription input[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
 }
 
+.inscription input[type="submit"]:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.inscription input[type="submit"]:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 /* CONNEXION */
 .connexion {
   display: flex;
@@ -72,13 +86,17 @@ select {
 .connexion button {
   padding: 5px 10px;
   border-radius: 5px;
-  border: 2px solid black;
+  border: 2px solid rgb(83, 83, 83);
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s;
 }
 
-.btnInscrire {
-  cursor: pointer;
-  text-decoration: underline;
-  color: rgb(182, 0, 0);
+.connexion button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.connexion button:focus {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* AFFICHAGE */
@@ -98,4 +116,20 @@ select {
 
 .affichage p {
   font-size: 1.5rem;
+}
+
+/* BTN changement */
+
+.btnChange {
+  cursor: pointer;
+  text-decoration: underline;
+  color: rgb(182, 0, 0);
+  transition: 0.3s;
+}
+
+.btnChange:hover {
+  color: rgb(144, 0, 0);
+}
+.btnChange:focus {
+  color: rgb(144, 0, 0);
 }
