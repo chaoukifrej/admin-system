@@ -133,3 +133,19 @@ input select {
 .btnChange:focus {
   color: rgb(144, 0, 0);
 }
+
+/* Transition */
+.bounce-enter-active {
+  animation: fade 0.3s;
+}
+.bounce-leave-active {
+  animation: fade 0.3s reverse;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
