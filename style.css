@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(238, 238, 238);
+}
+
+h1 {
+  position: relative;
+  bottom: 10vh;
+  text-align: center;
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+select {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* INSCRIPTION */
+
+.inscription {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  padding: 20px;
+  background-color: rgb(177, 177, 177);
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.inscription form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.inscription select {
+  width: 100%;
+}
+
+/* CONNEXION */
+.connexion {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  padding: 20px;
+  background-color: rgb(177, 177, 177);
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.connexion button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.btnInscrire {
+  cursor: pointer;
+  text-decoration: underline;
+  color: rgb(182, 0, 0);
+}
+
+/* AFFICHAGE */
+.affichage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  padding: 20px;
+  background-color: rgb(177, 177, 177);
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.affichage p {
+  font-size: 1.5rem;
+}
