@@ -14,7 +14,9 @@ let inscription = {
     </select>
     <input @click.prevent="inscription" type="submit" value="S'incrire">
     </form>
-    {{afficher}}
+    <transition name="checkout" appear>
+    <p v-if="afficher != ''" style="font-weight:bold;color:red">{{afficher}}</p>
+    </transition>
     <a>Déja inscris ? <span @click="notConnected" class="btnChange">se connecter</span></a>
   </div>`,
   data() {
@@ -48,7 +50,9 @@ let connexion = {
     <input v-model="nom" type="text" placeholder="Nom"/>
     <input v-model="password" type="password" placeholder="Mot de passe"/>
     <button @click="connect">Se connecter</button>
-    {{connexion}}
+    <transition name="checkout" appear>
+    <p v-if="connexion != ''" style="font-weight:bold;color:red">{{connexion}}</p>
+    </transition>
     <a>pas de compte ? <span @click="nonInscris" class="btnChange">s'incrire</span></a>
   </div>`,
   data() {
@@ -99,7 +103,9 @@ let affichage = {
         <p>Bienvenue <b>{{item.nom}}</b>,<br> tu est un <b>{{item.role}}</b>
         <div style="border: 2px solid rgb(183, 183, 183); padding: 10px; border-radius:5px">
           <p style="text-align:center">Liste Users :</p>
-          <p class="listUsers" v-for="user in user"><b>{{user.nom}}</b> <span>→</span> <span>{{user.role}}</span></p>
+          <transition-group name="fromleft" appear>
+          <p class="listUsers" v-for="user in user" :key="user.nom"><b>{{user.nom}}</b> <span>→</span> <span>{{user.role}}</span></p>
+          </transition-group>
         </div>
       </div>
       <div v-else-if="item.isConnected && item.role == 'utilisateur'"">
@@ -112,10 +118,12 @@ let affichage = {
         <p>Bienvenue <b>{{item.nom}}</b>.<br> Le <b>{{item.role}}</b>.<br></p>
         <div style="border: 2px solid rgb(183, 183, 183); padding: 10px; border-radius:5px">
         <p style="text-align:center">Liste Users :</p>
-        <p class="listUsers" v-for="u in user"><b>{{u.nom}}</b> <span>→</span> <span>{{u.role}}</span> 
-        <button style="color:rgb(180, 0, 0); font-weight: bold" @click="eraseUser(u)" v-if="u.nom != 'chaouki'">CXL</button>
+        <transition-group name="fromleft" appear>
+        <p class="listUsers" v-for="u in user" :key="u.nom"><b>{{u.nom}}</b> <span>→</span> <span>{{u.role}}</span> 
         <button style="color:rgb(0, 180, 0); font-weight: bold" @click="changeUser(u)" v-if="u.nom != 'chaouki'">Change</button>
+        <button style="color:rgb(180, 0, 0); font-weight: bold" @click="eraseUser(u)" v-if="u.nom != 'chaouki'">CXL</button>
         </p>
+        </transition-group>
       </div>
       </div>
     </div>

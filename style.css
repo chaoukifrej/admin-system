@@ -144,15 +144,17 @@ h2 {
 
 .affichage .listUsers {
   width: 260px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr 1fr;
+  justify-items: start;
   font-size: 1em;
   font-style: italic;
 }
 .affichage .listUsers button {
   transition: 0.3s;
+  font-size: 0.8em;
   cursor: pointer;
-  margin: 0 5px;
+  margin: 0 0px 0 5px;
   padding: 2px;
 }
 
@@ -173,6 +175,9 @@ h2 {
 }
 
 /* Transition */
+
+/* ?Fade */
+
 .fade-enter-active {
   animation: fade 0.3s;
 }
@@ -185,5 +190,45 @@ h2 {
   }
   100% {
     opacity: 1;
+  }
+}
+/* ?from-left */
+
+.fromleft-enter-active {
+  animation: fromleft 0.8s;
+}
+.fromleft-leave-active {
+  animation: fromleft 0.8s reverse;
+}
+@keyframes fromleft {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+/* ?checkout */
+
+.checkout-enter-active {
+  animation: checkout 0.8s;
+}
+.checkout-leave-active {
+  animation: checkout 0.8s reverse;
+}
+@keyframes checkout {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
