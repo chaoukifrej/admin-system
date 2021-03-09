@@ -146,6 +146,23 @@ let app = new Vue({
     affiche: false,
     affichageInscription: "",
   },
+  mounted() {
+    localStorage.getItem("users")
+      ? (this.users = JSON.parse(localStorage.getItem("users")))
+      : (this.users = [
+          {
+            nom: "chaouki",
+            password: "aaa",
+            role: "SuperAdmin",
+            isConnected: false,
+          },
+        ]);
+  },
+  watch: {
+    users: function () {
+      localStorage.setItem("users", JSON.stringify(this.users));
+    },
+  },
   methods: {
     pushUser(p) {
       let user = {

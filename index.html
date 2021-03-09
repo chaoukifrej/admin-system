@@ -16,18 +16,18 @@
   <div id="app">
     <h1>[ <span>Administration!</span> ]</h1>
     <span v-if="inscrire">
-      <transition name="bounce" mode="out-in">
+      <transition name="fade" mode="out-in">
         <inscription class="inscription" :afficher="affichageInscription" @send="pushUser" @goto-connect="notConnected">
         </inscription>
       </transition>
     </span>
     <span v-else-if="!inscrire && !affiche">
-      <transition name="bounce" mode="out-in">
+      <transition name="fade" mode="out-in">
         <connexion class="connexion" :user="users" @connected="connected" @goto="nonInscris"></connexion>
       </transition>
     </span>
     <span v-else>
-      <transition name="bounce" mode="out-in">
+      <transition name="fade" mode="out-in">
         <affichage class="affichage" :user="users" @erase-user="users" @disconnect="disconnect"></affichage>
       </transition>
     </span>

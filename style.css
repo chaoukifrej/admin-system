@@ -58,7 +58,7 @@ h2 {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  min-height: 300px;
+  height: 300px;
   width: 300px;
   padding: 20px;
   background-color: rgba(177, 177, 177, 0.2);
@@ -173,10 +173,10 @@ h2 {
 }
 
 /* Transition */
-.bounce-enter-active {
+.fade-enter-active {
   animation: fade 0.3s;
 }
-.bounce-leave-active {
+.fade-leave-active {
   animation: fade 0.3s reverse;
 }
 @keyframes fade {
