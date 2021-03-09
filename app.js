@@ -1,5 +1,6 @@
 //?INSCRIPTION
 let inscription = {
+  props: ["afficher"],
   template: `    
   <div>
     <h2>Inscription</h2>
@@ -13,21 +14,19 @@ let inscription = {
     </select>
     <input @click.prevent="inscription" type="submit" value="S'incrire">
     </form>
+    {{afficher}}
     <a>Déja inscris ? <span @click="notConnected" class="btnChange">se connecter</span></a>
-    {{affiche}}
   </div>`,
   data() {
     return {
       nom: "",
       password: "",
       role: "",
-      affiche: "",
       notC: false,
     };
   },
   methods: {
     inscription() {
-      this.affiche = `${this.nom} : ton inscription est réussi !`;
       this.$emit("send", {
         nom: this.nom,
         password: this.password,
@@ -49,8 +48,8 @@ let connexion = {
     <input v-model="nom" type="text" placeholder="Nom"/>
     <input v-model="password" type="password" placeholder="Mot de passe"/>
     <button @click="connect">Se connecter</button>
-    <a>pas de compte ? <span @click="nonInscris" class="btnChange">s'incrire</span></a>
     {{connexion}}
+    <a>pas de compte ? <span @click="nonInscris" class="btnChange">s'incrire</span></a>
   </div>`,
   data() {
     return {
@@ -63,12 +62,17 @@ let connexion = {
   methods: {
     connect() {
       for (const elem of this.user) {
-        if (elem.nom == this.nom && elem.password == this.password) {
-          elem.isConnected = true;
-          this.connexion = "connexion réussi !";
+        if (elem.nom == this.nom) {
+          if (elem.password == this.password) {
+            elem.isConnected = true;
+            this.connexion = "";
+          } else {
+            elem.isConnected = false;
+            this.connexion = "mot de passe incorrect !";
+          }
         } else {
           elem.isConnected = false;
-          this.connexion = "";
+          this.connexion = "Utilisateur inconnu";
         }
         this.$emit("connected", { connected: elem });
       }
@@ -86,9 +90,26 @@ let affichage = {
   <div>
     <h2>Connecté</h2>
     <div v-for="item in user">
-    <div v-if="item.isConnected">
-    <p>Bienvenue <b>{{item.nom}}</b>,<br> tu est un <b>{{item.role}}</b>.<br> Par contre tu ne peut rien faire...</p>
-    </div>
+      <div v-if="item.isConnected && item.role == 'admin'">
+        <p>Bienvenue <b>{{item.nom}}</b>,<br> tu est un <b>{{item.role}}</b>
+        <div style="border: 2px solid rgb(183, 183, 183); padding: 10px; border-radius:5px">
+          <p style="text-align:center">Liste Users :</p>
+          <p class="listUsers" v-for="user in user"><b>{{user.nom}}</b> <span>→</span> <span>{{user.role}}</span></p>
+        </div>
+      </div>
+      <div v-else-if="item.isConnected && item.role == 'utilisateur'"">
+        <p>Bienvenue <b>{{item.nom}}</b>,<br> tu est un <b>{{item.role}}</b>.<br> Par contre tu ne peut rien faire...</p>
+      </div>
+      <div v-else-if="item.isConnected && item.role == ''"">
+        <p>Bienvenue <b>{{item.nom}}</b> mais tu n'est rien donc tu ne peut rien faire...</p>
+      </div>
+      <div v-else-if="item.isConnected && item.role == 'SuperAdmin'">
+        <p>Bienvenue <b>{{item.nom}}</b>.<br> Le <b>{{item.role}}</b>.<br></p>
+        <div style="border: 2px solid rgb(183, 183, 183); padding: 10px; border-radius:5px">
+        <p style="text-align:center">Liste Users :</p>
+        <p class="listUsers" v-for="u in user"><b>{{u.nom}}</b> <span>→</span> <span>{{u.role}}</span> <button @click="eraseUser(u)" v-if="u.nom != 'chaouki'">CXL</button></p>
+      </div>
+      </div>
     </div>
     <a><span @click="deconnect" class="btnChange">se déconnecter</span></a>
   </div>`,
@@ -96,6 +117,10 @@ let affichage = {
   methods: {
     deconnect() {
       this.$emit("disconnect");
+    },
+    eraseUser(u) {
+      this.$emit("erase-user", { u });
+      console.log(u);
     },
   },
 };
@@ -109,9 +134,17 @@ let app = new Vue({
     affichage,
   },
   data: {
-    users: [],
+    users: [
+      {
+        nom: "chaouki",
+        password: "aaa",
+        role: "SuperAdmin",
+        isConnected: false,
+      },
+    ],
     inscrire: false,
     affiche: false,
+    affichageInscription: "",
   },
   methods: {
     pushUser(p) {
@@ -121,8 +154,22 @@ let app = new Vue({
         role: p.role,
         isConnected: false,
       };
-      this.users.push(user);
-      this.inscrire = false;
+      let check = false;
+      for (const elem of this.users) {
+        if (elem.nom != user.nom) {
+          check = false;
+        } else {
+          check = true;
+          break;
+        }
+      }
+      if (!check) {
+        this.users.push(user);
+        this.inscrire = false;
+        this.affichageInscription = "";
+      } else {
+        this.affichageInscription = "L'utilisateur existe deja";
+      }
     },
     connected(p) {
       for (const e of this.users) {

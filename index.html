@@ -17,7 +17,8 @@
     <h1>[ <span>Administration!</span> ]</h1>
     <span v-if="inscrire">
       <transition name="bounce" mode="out-in">
-        <inscription class="inscription" @send="pushUser" @goto-connect="notConnected"></inscription>
+        <inscription class="inscription" :afficher="affichageInscription" @send="pushUser" @goto-connect="notConnected">
+        </inscription>
       </transition>
     </span>
     <span v-else-if="!inscrire && !affiche">
@@ -27,7 +28,7 @@
     </span>
     <span v-else>
       <transition name="bounce" mode="out-in">
-        <affichage class="affichage" :user="users" @disconnect="disconnect"></affichage>
+        <affichage class="affichage" :user="users" @erase-user="users" @disconnect="disconnect"></affichage>
       </transition>
     </span>
 
