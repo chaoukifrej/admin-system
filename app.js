@@ -61,21 +61,26 @@ let connexion = {
   },
   methods: {
     connect() {
+      let userC;
       for (const elem of this.user) {
         if (elem.nom == this.nom) {
           if (elem.password == this.password) {
             elem.isConnected = true;
             this.connexion = "";
+            userC = elem;
           } else {
             elem.isConnected = false;
+            userC = elem;
             this.connexion = "mot de passe incorrect !";
           }
+          break;
         } else {
           elem.isConnected = false;
+          userC = elem;
           this.connexion = "Utilisateur inconnu";
         }
-        this.$emit("connected", { connected: elem });
       }
+      this.$emit("connected", { connected: userC });
     },
     nonInscris() {
       this.$emit("goto", { subscribe: this.not });
@@ -108,7 +113,9 @@ let affichage = {
         <div style="border: 2px solid rgb(183, 183, 183); padding: 10px; border-radius:5px">
         <p style="text-align:center">Liste Users :</p>
         <p class="listUsers" v-for="u in user"><b>{{u.nom}}</b> <span>→</span> <span>{{u.role}}</span> 
-        <button style="color:rgb(180, 0, 0); font-weight: bold" @click="eraseUser(u)" v-if="u.nom != 'chaouki'">CXL</button></p>
+        <button style="color:rgb(180, 0, 0); font-weight: bold" @click="eraseUser(u)" v-if="u.nom != 'chaouki'">CXL</button>
+        <button style="color:rgb(0, 180, 0); font-weight: bold" @click="changeUser(u)" v-if="u.nom != 'chaouki'">Change</button>
+        </p>
       </div>
       </div>
     </div>
@@ -120,6 +127,9 @@ let affichage = {
     },
     eraseUser(usertoCxl) {
       this.$emit("erase-user", { usertoCxl });
+    },
+    changeUser(usertoChange) {
+      this.$emit("change-user", { usertoChange });
     },
   },
 };
@@ -219,6 +229,18 @@ let app = new Vue({
         }
       }
       this.users.splice(index, 1);
+    },
+    changeUser(p) {
+      for (const elem of this.users) {
+        if (elem.nom == p.usertoChange.nom) {
+          if (elem.role == "admin") {
+            elem.role = "utilisateur";
+          } else {
+            elem.role = "admin";
+          }
+        }
+      }
+      localStorage.setItem("users", JSON.stringify(this.users));
     },
   },
   computed: {},

@@ -28,7 +28,8 @@
     </span>
     <span v-else>
       <transition name="fade" mode="out-in">
-        <affichage class="affichage" :user="users" @erase-user="eraseUser" @disconnect="disconnect"></affichage>
+        <affichage class="affichage" :user="users" @erase-user="eraseUser" @change-user="changeUser"
+          @disconnect="disconnect"></affichage>
       </transition>
     </span>
 
