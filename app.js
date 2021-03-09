@@ -198,9 +198,13 @@ let app = new Vue({
         }
       }
       if (!check) {
-        this.users.push(user);
-        this.inscrire = false;
-        this.affichageInscription = "";
+        if (user.nom != "") {
+          this.users.push(user);
+          this.inscrire = false;
+          this.affichageInscription = "";
+        } else {
+          this.affichageInscription = "Indiquez un nom !";
+        }
       } else {
         this.affichageInscription = "L'utilisateur existe deja";
       }
