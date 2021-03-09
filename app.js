@@ -107,20 +107,19 @@ let affichage = {
         <p>Bienvenue <b>{{item.nom}}</b>.<br> Le <b>{{item.role}}</b>.<br></p>
         <div style="border: 2px solid rgb(183, 183, 183); padding: 10px; border-radius:5px">
         <p style="text-align:center">Liste Users :</p>
-        <p class="listUsers" v-for="u in user"><b>{{u.nom}}</b> <span>→</span> <span>{{u.role}}</span> <button @click="eraseUser(u)" v-if="u.nom != 'chaouki'">CXL</button></p>
+        <p class="listUsers" v-for="u in user"><b>{{u.nom}}</b> <span>→</span> <span>{{u.role}}</span> 
+        <button style="color:rgb(180, 0, 0); font-weight: bold" @click="eraseUser(u)" v-if="u.nom != 'chaouki'">CXL</button></p>
       </div>
       </div>
     </div>
     <a><span @click="deconnect" class="btnChange">se déconnecter</span></a>
   </div>`,
-
   methods: {
     deconnect() {
       this.$emit("disconnect");
     },
-    eraseUser(u) {
-      this.$emit("erase-user", { u });
-      console.log(u);
+    eraseUser(usertoCxl) {
+      this.$emit("erase-user", { usertoCxl });
     },
   },
 };
@@ -211,6 +210,15 @@ let app = new Vue({
         }
       }
       this.affiche = false;
+    },
+    eraseUser(p) {
+      let index;
+      for (const user of this.users) {
+        if (user.nom == p.usertoCxl.nom) {
+          index = this.users.indexOf(user);
+        }
+      }
+      this.users.splice(index, 1);
     },
   },
   computed: {},
